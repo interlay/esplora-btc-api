@@ -1,0 +1,13 @@
+{
+  "name": "@interlay/esplora-btc-api",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "openapi-generator generate -i api.yaml -g typescript-axios -o src"
+  },
+  "dependencies": {
+    "@types/node": "^14.0.14",
+    "axios": "^0.19.2",
+    "typescript": "~3.5.2"
+  }
+}

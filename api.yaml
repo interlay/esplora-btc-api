@@ -1,0 +1,494 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Blockstream Esplora API
+  license:
+    name: MIT
+servers:
+  - url: https://blockstream.info/api
+  - url: https://blockstream.info/testnet/api
+paths:
+  /tx/{txId}:
+    get:
+      summary: Returns information about the transaction.
+      operationId: getTx
+      tags:
+        - tx
+      parameters:
+        - name: txId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Transaction
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+  /tx/{txId}/status:
+    get:
+      summary: Returns the transaction confirmation status.
+      operationId: getTxStatus
+      tags:
+        - tx
+      parameters:
+        - name: txId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Transaction status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Status"
+  /tx/{txId}/hex:
+    get:
+      summary: Returns the raw transaction in hex.
+      operationId: getTxHex
+      tags:
+        - tx
+      parameters:
+        - name: txId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Transaction hex
+          content:
+            text/plain:
+              schema:
+                type: string
+  /tx/{txId}/merkleblock-proof:
+    get:
+      summary: Returns a merkle inclusion proof for the transaction using bitcoind's merkleblock format.
+      operationId: getTxMerkleBlockProof
+      tags:
+        - tx
+      parameters:
+        - name: txId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Merkle proof
+          content:
+            text/plain:
+              schema:
+                type: string
+  /tx/{txId}/outspend/{vout}:
+    get:
+      summary: Returns the spending status of a transaction output.
+      operationId: getTxOutspend
+      tags:
+        - tx
+      parameters:
+        - name: txId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: vout
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        default:
+          description: Spending status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Spend"
+  /tx/{txId}/outspends:
+    get:
+      summary: Returns the spending status of all transaction outputs.
+      operationId: getAllTxOutspends
+      tags:
+        - tx
+      parameters:
+        - name: txId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: All spending statuses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Spend"
+  /tx:
+    post:
+      summary: Broadcast a raw transaction to the network.
+      operationId: postTx
+      tags:
+        - tx
+      responses:
+        default:
+          description: The transaction should be provided as hex in the request body. The txid will be returned on success.
+          content:
+            application/json:
+              schema:
+                type: string
+  /address/{address}:
+    get:
+      summary: Get information about an address.
+      operationId: getAddress
+      tags:
+        - address
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Account metrics
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - address
+                  - chain_stats
+                  - mempool_stats
+                properties:
+                  address:
+                    type: string
+                  chain_stats:
+                    type: object
+                    properties:
+                      funded_txo_count:
+                        type: number
+                      funded_txo_sum:
+                        type: number
+                      spent_txo_count:
+                        type: number
+                      spent_txo_sum:
+                        type: number
+                      tx_count:
+                        type: number
+                  mempool_stats:
+                    type: object
+                    properties:
+                      funded_txo_count:
+                        type: number
+                      funded_txo_sum:
+                        type: number
+                      spent_txo_count:
+                        type: number
+                      spent_txo_sum:
+                        type: number
+                      tx_count:
+                        type: number
+  /address/{address}/txs:
+    get:
+      summary: Get transaction history for the specified address, sorted with newest first.
+      operationId: getAddressTxHistory
+      tags:
+        - address
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Returns up to 50 mempool transactions plus the first 25 confirmed transactions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transaction"
+  /address/{address}/txs/mempool:
+    get:
+      summary: Get unconfirmed transaction history for the specified address.
+      operationId: getAddressTxMempool
+      tags:
+        - address
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Returns up to 50 transactions (no paging).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transaction"
+  /address/{address}/utxo:
+    get:
+      summary: Get the list of unspent transaction outputs associated with the address.
+      operationId: getAddressUtxo
+      tags:
+        - address
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Returns up to 50 transactions (no paging).
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - txid
+                  - vout
+                  - value
+                properties:
+                  txid:
+                    type: string
+                  vout:
+                    type: number
+                  value:
+                    type: number
+                  status:
+                    $ref: "#/components/schemas/Status"
+  /block/{hash}:
+    get:
+      summary: Returns information about a block.
+      operationId: getBlock
+      tags:
+        - block
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Block info
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - height
+                  - version
+                  - timestamp
+                  - bits
+                  - nonce
+                  - merkle_root
+                  - tx_count
+                  - size
+                  - weight
+                  - previousblockhash
+                properties:
+                  id:
+                    type: string
+                  height:
+                    type: number
+                  version:
+                    type: number
+                  timestamp:
+                    type: number
+                  bits:
+                    type: number
+                  nonce:
+                    type: number
+                  merkle_root: 
+                    type: string
+                  tx_count:
+                    type: number
+                  size:
+                    type: number
+                  weight:
+                    type: number
+                  previousblockhash:
+                    type: string
+  /block/{hash}/status:
+    get:
+      summary: Returns the block status.
+      operationId: getBlockStatus
+      tags:
+        - block
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Block status
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - in_best_chain
+                properties:
+                  in_best_chain:
+                    type: boolean
+                  height:
+                    type: number
+                  next_best:
+                    type: string
+  /block/{hash}/txids:
+    get:
+      summary: Returns a list of all txids in the block.
+      operationId: getBlockTxids
+      tags:
+        - block
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Block transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /block/{hash}/txid/{index}:
+    get:
+      summary: Returns the transaction at index :index within the specified block.
+      operationId: getBlockTxByIndex
+      tags:
+        - block
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: index
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        default:
+          description: Block transaction
+          content:
+            application/json:
+              schema:
+                type: string
+  /block-height/{height}:
+    get:
+      summary: Returns the hash of the block currently at height.
+      operationId: getBlockAtHeight
+      tags:
+        - block
+      parameters:
+        - name: height
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        default:
+          description: Block hash
+          content:
+            application/json:
+              schema:
+                type: string
+  /blocks/tip/height:
+    get:
+      summary: Returns the height of the last block.
+      operationId: getLastBlockHeight
+      tags:
+        - block
+      responses:
+        default:
+          description: Block height
+          content:
+            application/json:
+              schema:
+                type: number
+  /blocks/tip/hash:
+    get:
+      summary: Returns the hash of the last block.
+      operationId: getLastBlockHash
+      tags:
+        - block
+      responses:
+        default:
+          description: Block hash
+          content:
+            application/json:
+              schema:
+                type: string
+
+components:
+  schemas:
+    Status:
+      type: object
+      required:
+        - confirmed
+      properties:
+        confirmed:
+          type: boolean
+        block_height:
+          type: number
+        block_hash:
+          type: string
+        block_time:
+          type: number
+    Transaction:
+      type: object
+      required:
+        - txid
+        - version
+      properties:
+        txid:
+          type: string
+        version:
+          type: number
+        locktime:
+          type: number
+        # vin:
+        # vout:
+        size:
+          type: number
+        weight:
+          type: number
+        fee:
+          type: number
+        status:
+          $ref: "#/components/schemas/Status"
+    Spend:
+      type: object
+      required:
+        - spent
+      properties:
+        spent:
+          type: boolean
+        txid:
+          type: string
+        vin:
+          type: string
+        status:
+          $ref: "#/components/schemas/Status"
+
