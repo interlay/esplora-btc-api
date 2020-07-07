@@ -1,12 +1,19 @@
 {
   "name": "@interlay/esplora-btc-api",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/index.js",
   "scripts": {
     "build": "openapi-generator generate -i api.yaml -g typescript-axios -o src"
   },
   "files": [
     "dist/"
+  ],
+  "keywords": [
+    "bitcoin",
+    "blockstream",
+    "esplora",
+    "typescript",
+    "openapi"
   ],
   "dependencies": {
     "@types/node": "^14.0.14",
