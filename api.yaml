@@ -190,9 +190,16 @@ paths:
       operationId: postTx
       tags:
         - tx
+      requestBody:
+        description: The transaction should be provided as hex in the request body.
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
       responses:
         default:
-          description: The transaction should be provided as hex in the request body. The txid will be returned on success.
+          description: The txid will be returned on success.
           content:
             application/json:
               schema:
