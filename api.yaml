@@ -577,6 +577,44 @@ components:
           type: string
         block_time:
           type: number
+    VOut:
+      type: object
+      properties:
+        scriptpubkey:
+          type: string
+        scriptpubkey_asm:
+          type: string
+        scriptpubkey_type:
+          type: string
+        scriptpubkey_address:
+          type: string
+        value:
+          type: number
+    VIn:
+      type: object
+      properties:
+        txid:
+          type: string
+        vout:
+          type: number
+        is_coinbase:
+          type: boolean
+        scriptsig:
+          type: string
+        scriptsig_asm:
+          type: string
+        inner_redeemscript_asm:
+          type: string
+        inner_witnessscript_asm:
+          type: string
+        sequence:
+          type: number
+        witness:
+          type: array
+          items:
+            type: string
+        prevout:
+          $ref: "#/components/schemas/VOut"
     Transaction:
       type: object
       required:
@@ -589,8 +627,14 @@ components:
           type: number
         locktime:
           type: number
-        # vin:
-        # vout:
+        vin:
+          type: array
+          items:
+            $ref: "#/components/schemas/VIn"
+        vout:
+          type: array
+          items:
+            $ref: "#/components/schemas/VOut"
         size:
           type: number
         weight:
