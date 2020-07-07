@@ -60,11 +60,31 @@ paths:
             type: string
       responses:
         default:
-          description: Transaction hex
+          description: Transaction in hex format
           content:
             text/plain:
               schema:
                 type: string
+  /tx/{txId}/raw:
+    get:
+      summary: Returns the raw transaction as binary data.
+      operationId: getTxRaw
+      tags:
+        - tx
+      parameters:
+        - name: txId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Transaction in binary format
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
   /tx/{txId}/merkleblock-proof:
     get:
       summary: Returns a merkle inclusion proof for the transaction using bitcoind's merkleblock format.
