@@ -84,6 +84,41 @@ paths:
             text/plain:
               schema:
                 type: string
+  /tx/{txId}/merkle-proof:
+    get:
+      summary: Returns a merkle inclusion proof for the transaction using Electrum's blockchain.transaction.get_merkle format.
+      operationId: getTxMerkleProof
+      tags:
+        - tx
+      parameters:
+        - name: txId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Merkle branch to a confirmed transaction
+          content:
+            text/plain:
+              schema:
+                type: object
+                required:
+                  - merkle
+                  - block_height
+                  - pos
+                properties:
+                  merkle:
+                    type: array
+                    description: A list of transaction hashes the current hash is paired with, deepest pairing first.
+                    items:
+                      type: string
+                  block_height:
+                    type: number
+                    description: The height of the block the transaction was confirmed in.
+                  pos:
+                    type: number
+                    description: The 0-based index of the position of the transaction in the ordered list of transactions in the block.
   /tx/{txId}/outspend/{vout}:
     get:
       summary: Returns the spending status of a transaction output.
@@ -250,24 +285,13 @@ paths:
             type: string
       responses:
         default:
-          description: Returns up to 50 transactions (no paging).
+          description: Unspent tx outputs.
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - txid
-                  - vout
-                  - value
-                properties:
-                  txid:
-                    type: string
-                  vout:
-                    type: number
-                  value:
-                    type: number
-                  status:
-                    $ref: "#/components/schemas/Status"
+                type: array
+                items:
+                  $ref: "#/components/schemas/UTXO"
   /block/{hash}:
     get:
       summary: Returns information about a block.
@@ -491,4 +515,20 @@ components:
           type: string
         status:
           $ref: "#/components/schemas/Status"
+    UTXO:
+      type: object
+      required:
+        - txid
+        - vout
+        - value
+      properties:
+        txid:
+          type: string
+        vout:
+          type: number
+        value:
+          type: number
+        status:
+          $ref: "#/components/schemas/Status"
+
 
