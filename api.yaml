@@ -464,6 +464,76 @@ paths:
             application/json:
               schema:
                 type: string
+  /mempool:
+    get:
+      summary: Get mempool backlog statistics.
+      operationId: getMempool
+      tags:
+        - mempool
+      responses:
+        default:
+          description: Object with mempool count and size.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mempool"
+  /mempool/txids:
+    get:
+      summary: Get the full list of txids in the mempool as an array.
+      operationId: getMempoolTxids
+      tags:
+        - mempool
+      responses:
+        default:
+          description: The order of the txids is arbitrary and does not match bitcoind's.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /mempool/recent:
+    get:
+      summary: Get a list of the last 10 transactions to enter the mempool.
+      operationId: getMempoolRecent
+      tags:
+        - mempool
+      responses:
+        default:
+          description: Each transaction object contains simplified overview data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - txid
+                    - fee
+                    - vsize
+                    - value
+                  properties:
+                    txid:
+                      type: string
+                    fee:
+                      type: number
+                    vsize:
+                      type: number
+                    value:
+                      type: number
+  /fee-estimates:
+    get:
+      summary: Get an object where the key is the confirmation target (in number of blocks) and the value is the estimated feerate (in sat/vB).
+      operationId: getFeeEstimates
+      tags:
+        - fee-estimates
+      responses:
+        default:
+          description: The available confirmation targets are 1-25, 144, 504 and 1008 blocks.
+          content:
+            application/json:
+              schema:
+                type: object
 
 components:
   schemas:
@@ -530,5 +600,28 @@ components:
           type: number
         status:
           $ref: "#/components/schemas/Status"
+    Mempool:
+      type: object
+      required:
+        - count
+        - vsize
+        - total_fee
+        - fee_histogram
+      properties:
+        count:
+          type: number
+        vsize:
+          type: number
+        total_fee:
+          type: number
+        fee_histogram:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+            minItems: 2
+            maxItems: 2
+
 
 
