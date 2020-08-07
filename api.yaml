@@ -446,6 +446,26 @@ paths:
             application/json:
               schema:
                 type: string
+  /block/{hash}/raw:
+    get:
+      summary: Returns the raw block representation in binary.
+      operationId: getBlockRaw
+      tags:
+        - block
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Block in binary format
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
   /block-height/{height}:
     get:
       summary: Returns the hash of the block currently at height.

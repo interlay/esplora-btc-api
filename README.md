@@ -16,12 +16,28 @@ yarn build && tsc
 
 ## Examples
 
+### Get the current chain's best height
+
 ```typescript
-import * as esplora from './src/index';
+import * as esplora from '@interlay/esplora-btc-api';
 
 async function main() {
     let result = await new esplora.BlockApi().getLastBlockHeight();
     console.log(result.data);
+}
+
+main();
+```
+
+### Get a raw block and extract the header
+
+```typescript
+import * as esplora from '@interlay/esplora-btc-api';
+
+async function main() {
+    const api = new esplora.BlockApi();
+    const result = await api.getBlockRaw("$HASH", {responseType: 'arraybuffer'});
+    console.log(result.data.slice(0, 80).toString('hex'));
 }
 
 main();
