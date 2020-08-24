@@ -580,8 +580,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-
+                type: array
+                items:
+                  type: number
 components:
   schemas:
     Status:
