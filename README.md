@@ -11,7 +11,7 @@ yarn install @interlay/esplora-btc-api
 ## Build
 
 ```bash
-yarn build && tsc
+yarn build
 ```
 
 ## Examples
