@@ -604,7 +604,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Transaction"
-  /scripthash/{hash}/txs/chain/{last_seen_txid}:
+  /scripthash/{hash}/txs/chain/{lastSeenTxid}:
     get:
       summary: Get confirmed transaction history for the specified address/scripthash, sorted by newest first.
       operationId: getTxsBeforeTxidByScripthash
