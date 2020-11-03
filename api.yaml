@@ -607,7 +607,7 @@ paths:
   /scripthash/{hash}/txs/chain:
     get:
       summary: Get confirmed transaction history for the specified address/scripthash, sorted by newest first.
-      operationId: getRecentTxsScripthash
+      operationId: getRecentTxsByScripthash
       tags:
         - scripthash
       parameters:
