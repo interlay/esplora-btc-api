@@ -6,7 +6,9 @@ info:
     name: MIT
 servers:
   - url: https://blockstream.info/api
-  - url: https://blockstream.info/testnet/api
+    description: Bitcoin Mainnet. Does not index provably unspendable transactions - cannot query by OP_RETURN
+  - url: https://electr-testnet.do.polkabtc.io
+    description: Bitcoin Testnet. Indexes provably unspendable transactions - can query by OP_RETURN
 paths:
   /tx/{txId}:
     get:
