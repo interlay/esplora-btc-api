@@ -10,7 +10,10 @@ yarn install @interlay/esplora-btc-api
 
 ## Build
 
+Requires [openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator-cli).
+
 ```bash
+yarn generate
 yarn build
 ```
 

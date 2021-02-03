@@ -1,10 +1,11 @@
 {
   "name": "@interlay/esplora-btc-api",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "openapi-generator-cli generate -i api.yaml -g typescript-axios -o src && tsc"
+    "generate": "openapi-generator-cli generate -i api.yaml -g typescript-axios -o src",
+    "build": "tsc"
   },
   "files": [
     "dist/"
@@ -17,8 +18,11 @@
     "openapi"
   ],
   "dependencies": {
-    "@types/node": "^14.0.27",
-    "axios": "^0.21.1",
-    "typescript": "~3.5.2"
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.1.17",
+    "@types/node": "^14.14.20",
+    "typescript": "^4.1.3"
   }
 }
