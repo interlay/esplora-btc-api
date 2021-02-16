@@ -375,6 +375,25 @@ paths:
                     type: number
                   previousblockhash:
                     type: string
+  /block/{hash}/header:
+    get:
+      summary: Returns the hex-encoded block header.
+      operationId: getBlockHeader
+      tags:
+        - block
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Block header
+          content:
+            application/json:
+              schema:
+                type: string
   /block/{hash}/status:
     get:
       summary: Returns the block status.
