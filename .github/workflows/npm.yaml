@@ -27,9 +27,11 @@ jobs:
             - name: Run openapi-generator
               run: |
                 npx @openapitools/openapi-generator-cli generate \
-                  -g typescript-axios \
-                  -i api.yaml \
-                  -o src
+                  --generator-name typescript-axios \
+                  --config ts-openapi-config.json \
+                  --input-spec api.yaml \
+                  --output client
+            - run: cd client
             - run: yarn build
             - run: echo "RELEASE_VERSION=${GITHUB_REF:10}" >> $GITHUB_ENV
             - run: echo ${RELEASE_VERSION}

@@ -1,14 +1,16 @@
-# [Blockstream Esplora](https://github.com/Blockstream/esplora) Client
+# [Blockstream Esplora](https://github.com/Blockstream/esplora) OpenAPI Spec
 
 Built using [OpenAPI](https://github.com/OpenAPITools/openapi-generator).
 
-## Install
+## Typescript (Axios)
+
+### Install
 
 ```bash
 yarn install @interlay/esplora-btc-api
 ```
 
-## Build
+### Build
 
 Requires [openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator-cli).
 
@@ -17,9 +19,9 @@ yarn generate
 yarn build
 ```
 
-## Examples
+### Examples
 
-### Get the current chain's best height
+#### Get the current chain's best height
 
 ```typescript
 import * as esplora from '@interlay/esplora-btc-api';
@@ -32,7 +34,7 @@ async function main() {
 main();
 ```
 
-### Get a raw block and extract the header
+#### Get a raw block and extract the header
 
 ```typescript
 import * as esplora from '@interlay/esplora-btc-api';
