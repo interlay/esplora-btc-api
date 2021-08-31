@@ -34,10 +34,7 @@ jobs:
                   --generator-name rust \
                   --config rust-openapi-config.json \
                   --input-spec api.yaml \
-                  --output client
-
-            - name: Overwrite Cargo.toml
-              run: mv Cargo.toml client/Cargo.toml
+                  --output rust-client
 
             - run: cargo publish --token ${{ secrets.CARGO_AUTH_TOKEN }}
-              working-directory: client
+              working-directory: rust-client

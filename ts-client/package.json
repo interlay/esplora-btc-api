@@ -1,0 +1,27 @@
+{
+    "name": "@interlay/esplora-btc-api",
+    "version": "1.0.1",
+    "description": "Esplora Bitcoin OpenAPI Client",
+    "author": "Interlay Ltd",
+    "license": "Apache-2.0",
+    "keywords": [
+        "bitcoin",
+        "blockstream",
+        "esplora",
+        "typescript",
+        "openapi"
+    ],
+    "main": "./dist/index.js",
+    "typings": "./dist/index.d.ts",
+    "scripts": {
+        "build": "tsc --outDir dist/",
+        "prepublishOnly": "npm run build"
+    },
+    "dependencies": {
+        "axios": "^0.21.1"
+    },
+    "devDependencies": {
+        "@types/node": "^12.11.5",
+        "typescript": "^3.6.4"
+    }
+}

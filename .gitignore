@@ -1,2 +1,7 @@
-client/
-node_modules/
+ts-client/*
+!ts-client/package.json
+!ts-client/.openapi-generator-ignore
+
+rust-client/*
+!rust-client/Cargo.toml
+!rust-client/.openapi-generator-ignore

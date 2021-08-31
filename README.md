@@ -1,6 +1,11 @@
-# [Blockstream Esplora](https://github.com/Blockstream/esplora) OpenAPI Spec
+# [Blockstream Esplora](https://github.com/Blockstream/esplora) OpenAPI Spec & Clients
 
-Built using [OpenAPI](https://github.com/OpenAPITools/openapi-generator).
+Built using [OpenAPI](https://github.com/OpenAPITools/openapi-generator).Requires [openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator-cli).
+
+```shell
+make rust-client
+make ts-client
+```
 
 ## Typescript (Axios)
 
@@ -12,10 +17,9 @@ yarn install @interlay/esplora-btc-api
 
 ### Build
 
-Requires [openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator-cli).
-
 ```bash
-yarn generate
+cd ts-client
+yarn install
 yarn build
 ```
 
