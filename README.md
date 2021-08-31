@@ -1,6 +1,6 @@
 # [Blockstream Esplora](https://github.com/Blockstream/esplora) OpenAPI Spec & Clients
 
-Built using [OpenAPI](https://github.com/OpenAPITools/openapi-generator).Requires [openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator-cli).
+Built using [OpenAPI](https://github.com/OpenAPITools/openapi-generator). Requires [openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator-cli).
 
 ```shell
 make rust-client
