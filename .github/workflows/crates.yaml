@@ -26,7 +26,9 @@ jobs:
 
             - uses: actions-rs/toolchain@v1
               with:
-                toolchain: stable  
+                toolchain: stable
+
+            - run: cargo install cargo-release --version 0.17.1
 
             - name: Run openapi-generator
               run: |
@@ -36,5 +38,12 @@ jobs:
                   --input-spec api.yaml \
                   --output rust-client
 
-            - run: cargo publish --token ${{ secrets.CARGO_AUTH_TOKEN }}
+            - run: |
+                echo ${GITHUB_REF}
+                cargo-release release \
+                  --tag-name ${GITHUB_REF} \
+                  --skip-push \
+                  --skip-tag \
+                  --no-dev-version \
+                  --token ${{ secrets.CARGO_AUTH_TOKEN }}
               working-directory: rust-client
