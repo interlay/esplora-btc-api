@@ -28,7 +28,7 @@ jobs:
               with:
                 toolchain: stable
 
-            - run: cargo install cargo-release --version 0.17.1
+            - run: cargo install cargo-release
 
             - name: Run openapi-generator
               run: |
