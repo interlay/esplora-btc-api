@@ -1,6 +1,6 @@
 [package]
 name = "esplora-btc-api"
-version = "1.0.2"
+version = "1.0.3"
 authors = ["Interlay Ltd"]
 edition = "2018"
 description = "Esplora Bitcoin OpenAPI Client"
