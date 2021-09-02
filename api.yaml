@@ -1,13 +1,15 @@
 openapi: "3.0.0"
 info:
-  version: 1.0.0
-  title: Blockstream Esplora API
+  version: 1.0.1
+  title: Blockstream Esplora HTTP API
+  description: JSON over RESTful HTTP. Amounts are always represented in satoshis.
   license:
-    name: MIT
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
   - url: https://blockstream.info/api
     description: Bitcoin Mainnet. Does not index provably unspendable transactions - cannot query by OP_RETURN
-  - url: https://electr-testnet.do.polkabtc.io
+  - url: https://btc-testnet.interlay.io
     description: Bitcoin Testnet. Indexes provably unspendable transactions - can query by OP_RETURN
 paths:
   /tx/{txId}:
