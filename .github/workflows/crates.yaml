@@ -41,9 +41,9 @@ jobs:
                   --output rust-client
 
             - run: |
-                echo ${GITHUB_REF}
+                echo ${GITHUB_REF:10}
                 cargo-release release \
-                  --tag-name ${GITHUB_REF} \
+                  --tag-name ${GITHUB_REF:10} \
                   --skip-push \
                   --skip-tag \
                   --no-dev-version \
