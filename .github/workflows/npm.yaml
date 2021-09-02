@@ -23,7 +23,6 @@ jobs:
                   java-version: '11'     
             - name: Install Yarn
               run: npm install -g yarn
-            - run: yarn install
             - name: Run openapi-generator
               run: |
                 npx @openapitools/openapi-generator-cli generate \
@@ -31,6 +30,8 @@ jobs:
                   --config ts-openapi-config.json \
                   --input-spec api.yaml \
                   --output ts-client
+            - run: yarn install
+              working-directory: ts-client
             - run: yarn build
               working-directory: ts-client
             - name: publish
