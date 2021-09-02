@@ -25,3 +25,10 @@ default-features = false
 features = ["json", "multipart", "default-tls"]
 
 [dev-dependencies]
+
+[package.metadata.release]
+allow-branch = ["*"]
+disable-push = true
+disable-tag = true
+tag-name = "v{{version}}"
+no-dev-version = true

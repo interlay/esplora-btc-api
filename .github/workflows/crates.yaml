@@ -43,10 +43,6 @@ jobs:
             - run: |
                 cargo-release release \
                   --token ${CARGO_AUTH_TOKEN} \
-                  --tag-name "v{{version}}" \
-                  --skip-push \
-                  --skip-tag \
-                  --no-dev-version \
                   --no-confirm \
                   --execute \
                   ${GITHUB_REF:10}
