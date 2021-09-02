@@ -41,11 +41,13 @@ jobs:
                   --output rust-client
 
             - run: |
-                echo ${GITHUB_REF:10}
                 cargo-release release \
-                  --tag-name ${GITHUB_REF:10} \
+                  --token ${{ secrets.CARGO_AUTH_TOKEN }} \
+                  --tag-name "v{{version}}" \
                   --skip-push \
                   --skip-tag \
                   --no-dev-version \
-                  --token ${{ secrets.CARGO_AUTH_TOKEN }}
+                  --no-confirm \
+                  --execute \
+                  ${GITHUB_REF:10}
               working-directory: rust-client
