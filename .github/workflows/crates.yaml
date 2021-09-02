@@ -42,7 +42,7 @@ jobs:
 
             - run: |
                 cargo-release release \
-                  --token ${{ secrets.CARGO_AUTH_TOKEN }} \
+                  --token ${CARGO_AUTH_TOKEN} \
                   --tag-name "v{{version}}" \
                   --skip-push \
                   --skip-tag \
@@ -50,4 +50,6 @@ jobs:
                   --no-confirm \
                   --execute \
                   ${GITHUB_REF:10}
+              env:
+                  CARGO_AUTH_TOKEN: ${{ secrets.CARGO_AUTH_TOKEN }}
               working-directory: rust-client
