@@ -36,5 +36,9 @@ jobs:
                   --input-spec api.yaml \
                   --output rust-client
 
+            - name: Overwrite crate version
+              run: sed -i "s/GIT_REF/${GITHUB_REF:10}/" Cargo.toml
+              working-directory: rust-client
+
             - run: cargo publish --token ${{ secrets.CARGO_AUTH_TOKEN }}
               working-directory: rust-client
