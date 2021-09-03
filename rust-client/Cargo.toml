@@ -1,6 +1,8 @@
 [package]
 name = "esplora-btc-api"
-version = "1.0.4"
+# do not replace the version
+# this is used by CI to publish
+version = "GIT_REF"
 authors = ["Interlay Ltd"]
 edition = "2018"
 description = "Esplora Bitcoin OpenAPI Client"
