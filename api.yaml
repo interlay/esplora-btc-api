@@ -779,8 +779,10 @@ components:
           type: string
         vout:
           type: integer
+          format: int64
         value:
           type: integer
+          format: int64
         status:
           $ref: "#/components/schemas/Status"
     Mempool:
