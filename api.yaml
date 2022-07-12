@@ -198,7 +198,7 @@ paths:
         description: The transaction should be provided as hex in the request body.
         required: true
         content:
-          text/plain:
+          application/octet-stream:
             schema:
               type: string
       responses:
