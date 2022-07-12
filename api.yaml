@@ -778,9 +778,9 @@ components:
         txid:
           type: string
         vout:
-          type: number
+          type: integer
         value:
-          type: number
+          type: integer
         status:
           $ref: "#/components/schemas/Status"
     Mempool:
